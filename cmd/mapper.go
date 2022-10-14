@@ -32,10 +32,8 @@ func main() {
 	// Missing token cli flag or environment variable
 	_, ok := os.LookupEnv("SECURE_API_TOKEN")
 	if !ok {
-
 		fmt.Println("TOKEN NOT FOUND - Please ensure either the \"SECURE_API_TOKEN\" environment variable or the \"secure-token\" cli flag is set.")
 		os.Exit(1)
-
 	}
 
 	outFile := "policies.html"
