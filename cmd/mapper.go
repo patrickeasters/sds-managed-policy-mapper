@@ -23,8 +23,16 @@ func main() {
 
 	token := ""
 	cli.StringFlag("secure-token", "API token for Sysdig Secure (env: SECURE_API_TOKEN)", &token)
+
+	// No Cli flag for the token, assign from the env var
 	if len(token) == 0 {
-		token = os.Getenv("SECURE_API_TOKEN")
+		var ok bool
+		// Missing token cli flag or environment variable
+		_, ok = os.LookupEnv("SECURE_API_TOKEN")
+		if !ok {
+			fmt.Println("TOKEN NOT FOUND - Please ensure either the \"SECURE_API_TOKEN\" environment variable or the \"secure-token\" cli flag is set.")
+			os.Exit(1)
+		}
 	}
 
 	outFile := "policies.html"
